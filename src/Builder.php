@@ -68,7 +68,7 @@ class Builder
                 $comparison = key($data);
                 $value = reset($data);
                 if (array_key_exists($comparison, $this->whereComparisons)) {
-                    $this->data['where'] = new Where($field, new $this->whereComparisons[$comparison]($value));
+                    $where[] = new Where($field, new $this->whereComparisons[$comparison]($value));
                 }
             }
         }
