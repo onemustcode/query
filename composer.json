@@ -1,0 +1,29 @@
+{
+    "name": "onemustcode/query",
+    "description": "",
+    "keywords": ["query"],
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Jeffrey Buitenhuis",
+            "email": "jeffrey@onemustcode.nl"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.4"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^3.2",
+        "phpunit/phpunit": "^4.0",
+        "mockery/mockery": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "OneMustCode\\Query\\": "src/"
+        },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    }
+}
