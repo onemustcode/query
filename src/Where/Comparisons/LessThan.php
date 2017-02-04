@@ -9,6 +9,6 @@ class LessThan extends AbstractComparison implements ComparisonInterface
      */
     public function getOperator()
     {
-        return '<';
+        return 'lt';
     }
 }

@@ -29,16 +29,16 @@ class Builder
 
     /** @var array */
     protected $whereComparisons = [
-        '=' => Equals::class,
-        '!=' => NotEquals::class,
-        '>' => GreaterThan::class,
-        '>=' => GreaterThanOrEquals::class,
-        '<' => LessThan::class,
-        '<=' => LessThanOrEquals::class,
+        'eq' => Equals::class,
+        'neq' => NotEquals::class,
+        'gt' => GreaterThan::class,
+        'gte' => GreaterThanOrEquals::class,
+        'lt' => LessThan::class,
+        'lte' => LessThanOrEquals::class,
         'in' => In::class,
-        '!in' => NotIn::class,
+        'nin' => NotIn::class,
         'null' => IsNotNull::class,
-        '!null' => IsNotNull::class,
+        'nnull' => IsNotNull::class,
     ];
 
     /**
@@ -68,7 +68,7 @@ class Builder
                 $comparison = key($data);
                 $value = reset($data);
                 if (array_key_exists($comparison, $this->whereComparisons)) {
-                    $where[] = new Where($field, new $this->whereComparisons[]($value));
+                    $this->data['where'] = new Where($field, new $this->whereComparisons[$comparison]($value));
                 }
             }
         }

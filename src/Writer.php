@@ -39,9 +39,9 @@ class Writer
         }
 
         if ($ordering = $this->query->getOrdering()) {
-            $data['sort_by'] = [];
+            $data['order_by'] = [];
             foreach ($ordering as $order) {
-                $data['sort_by'][$order->getField()] = $order->getDirection();
+                $data['order_by'][$order->getField()] = $order->getDirection();
             }
         }
 

@@ -9,6 +9,6 @@ class GreaterThanOrEquals extends AbstractComparison implements ComparisonInterf
      */
     public function getOperator()
     {
-        return '>=';
+        return 'gte';
     }
 }

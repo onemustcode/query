@@ -9,6 +9,6 @@ class GreaterThan extends AbstractComparison implements ComparisonInterface
      */
     public function getOperator()
     {
-        return '>';
+        return 'gt';
     }
 }

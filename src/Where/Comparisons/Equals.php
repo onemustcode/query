@@ -9,6 +9,6 @@ class Equals extends AbstractComparison implements ComparisonInterface
      */
     public function getOperator()
     {
-        return '=';
+        return 'eq';
     }
 }

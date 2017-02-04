@@ -9,6 +9,6 @@ class IsNotNull extends AbstractComparison implements ComparisonInterface
      */
     public function getOperator()
     {
-        return '!null';
+        return 'nnull';
     }
 }

@@ -9,6 +9,6 @@ class NotIn extends AbstractComparison implements ComparisonInterface
      */
     public function getOperator()
     {
-        return '!in';
+        return 'nin';
     }
 }
