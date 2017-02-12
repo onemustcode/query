@@ -84,7 +84,7 @@ class Builder
         if (isset($this->data['order_by'])) {
             foreach ($this->data['order_by'] as $field => $direction) {
                 if (array_key_exists($direction, $this->orderingDirections)) {
-                    $ordering[] = new $this->orderingDirections($field);
+                    $ordering[] = new $this->orderingDirections[$direction]($field);
                 }
             }
         }
