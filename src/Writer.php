@@ -29,19 +29,19 @@ class Writer
             ];
         }
 
-        if ($wheres = $this->query->getWhere()) {
-            $data['where'] = [];
-            foreach ($wheres as $where) {
-                $data['where'][$where->getField()] = [
-                    $where->getComparison()->getOperator() => $where->getComparison()->getValue()
+        if ($filters = $this->query->getFilters()) {
+            $data['filters'] = [];
+            foreach ($filters as $filter) {
+                $data['filters'][$filter->getField()] = [
+                    $filter->getOperator() => $filter->getValue(),
                 ];
             }
         }
 
-        if ($ordering = $this->query->getOrdering()) {
-            $data['order_by'] = [];
-            foreach ($ordering as $order) {
-                $data['order_by'][$order->getField()] = $order->getDirection();
+        if ($sortings = $this->query->getSortings()) {
+            $data['sortings'] = [];
+            foreach ($sortings as $sorting) {
+                $data['sortings'][$sorting->getField()] = $sorting->getDirection();
             }
         }
 

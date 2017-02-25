@@ -1,8 +1,8 @@
 <?php
 
-namespace OneMustCode\Query\Ordering;
+namespace OneMustCode\Query\Sorting;
 
-interface OrderingInterface
+interface SortingInterface
 {
     /**
      * @return string

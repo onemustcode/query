@@ -1,8 +1,8 @@
 <?php
 
-namespace OneMustCode\Query\Ordering;
+namespace OneMustCode\Query\Sorting;
 
-abstract class AbstractOrdering
+abstract class AbstractSorting
 {
     /** @var string */
     private $field;

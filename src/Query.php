@@ -2,44 +2,40 @@
 
 namespace OneMustCode\Query;
 
-use OneMustCode\Query\Ordering\OrderingInterface;
+use OneMustCode\Query\Filters\FilterInterface;
+use OneMustCode\Query\Sorting\SortingInterface;
 use OneMustCode\Query\Paging\Paging;
-use OneMustCode\Query\Where\WhereInterface;
 
 class Query
 {
     /** @var null|Paging */
     protected $paging;
 
-    /** @var WhereInterface[] */
-    protected $where = [];
+    /** @var array|FilterInterface[] */
+    protected $filters = [];
 
-    /** @var OrderingInterface[] */
-    protected $ordering = [];
+    /** @var array|SortingInterface[] */
+    protected $sortings = [];
 
     /** @var array */
     protected $includes = [];
 
     /**
      * @param Paging|null $paging
-     * @param array $where
-     * @param array $ordering
+     * @param array $filters
+     * @param array $sortings
      * @param array $includes
      */
-    public function __construct(Paging $paging = null, array $where = [], array $ordering = [], array $includes = [])
+    public function __construct(Paging $paging = null, array $filters = [], array $sortings = [], array $includes = [])
     {
-        if ($paging === null) {
-            $paging = new Paging();
-        }
-
         $this->paging = $paging;
 
-        foreach ($where as $item) {
-            $this->addWhere($item);
+        foreach ($filters as $filter) {
+            $this->addFilter($filter);
         }
 
-        foreach ($ordering as $item) {
-            $this->addOrdering($item);
+        foreach ($sortings as $sorting) {
+            $this->addSorting($sorting);
         }
 
         foreach ($includes as $item) {
@@ -66,21 +62,21 @@ class Query
     }
 
     /**
-     * @param array $ordering
+     * @param array $sortings
      * @return Query
      */
-    public static function createFromOrdering(array $ordering)
+    public static function createFromSortings(array $sortings)
     {
-        return new self(null, [], $ordering, []);
+        return new self(null, [], $sortings, []);
     }
 
     /**
-     * @param array $where
+     * @param array $filters
      * @return Query
      */
-    public static function createFromWhere(array $where)
+    public static function createFromFilters(array $filters)
     {
-        return new self(null, $where);
+        return new self(null, $filters);
     }
 
     /**
@@ -100,39 +96,61 @@ class Query
     }
 
     /**
-     * @return WhereInterface[]
+     * @return array|FilterInterface[]
      */
-    public function getWhere()
+    public function getFilters()
     {
-        return $this->where;
+        return $this->filters;
     }
 
     /**
-     * @param WhereInterface $where
+     * @param FilterInterface $filter
      */
-    public function addWhere(WhereInterface $where)
+    public function addFilter(FilterInterface $filter)
     {
-        if (! in_array($where, $this->where, true)) {
-            $this->where[] = $where;
+        if (! in_array($filter, $this->filters, true)) {
+            $this->filters[] = $filter;
         }
     }
 
     /**
-     * @return OrderingInterface[]
+     * @param string $field
+     * @return array|FilterInterface[]
      */
-    public function getOrdering()
+    public function getFiltersByField($field)
     {
-        return $this->ordering;
+        return array_filter($this->filters, function (FilterInterface $filter) use ($field) {
+            return $filter->getField() === $field;
+        });
     }
 
     /**
-     * @param OrderingInterface $ordering
+     * @return array|SortingInterface[]
      */
-    public function addOrdering(OrderingInterface $ordering)
+    public function getSortings()
     {
-        if (! in_array($ordering, $this->ordering, true)) {
-            $this->ordering[] = $ordering;
+        return $this->sortings;
+    }
+
+    /**
+     * @param SortingInterface $sorting
+     */
+    public function addSorting(SortingInterface $sorting)
+    {
+        if (! in_array($sorting, $this->sortings, true)) {
+            $this->sortings[] = $sorting;
         }
+    }
+
+    /**
+     * @param string $field
+     * @return array|FilterInterface[]
+     */
+    public function getSortingsByField($field)
+    {
+        return array_filter($this->sortings, function (SortingInterface $sorting) use ($field) {
+            return $sorting->getField() === $field;
+        });
     }
 
     /**

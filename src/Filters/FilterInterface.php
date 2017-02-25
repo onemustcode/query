@@ -1,9 +1,14 @@
 <?php
 
-namespace OneMustCode\Query\Where\Comparisons;
+namespace OneMustCode\Query\Filters;
 
-interface ComparisonInterface
+interface FilterInterface
 {
+    /**
+     * @return string
+     */
+    public function getField();
+
     /**
      * @return string
      */

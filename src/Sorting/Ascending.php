@@ -1,8 +1,8 @@
 <?php
 
-namespace OneMustCode\Query\Ordering;
+namespace OneMustCode\Query\Sorting;
 
-class Ascending extends AbstractOrdering implements OrderingInterface
+class Ascending extends AbstractSorting implements SortingInterface
 {
     /**
      * @inheritdoc

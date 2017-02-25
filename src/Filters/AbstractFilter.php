@@ -1,18 +1,31 @@
 <?php
 
-namespace OneMustCode\Query\Where\Comparisons;
+namespace OneMustCode\Query\Filters;
 
-abstract class AbstractComparison
+abstract class AbstractFilter
 {
+    /** @var string */
+    protected $field;
+
     /** @var string */
     protected $value;
 
     /**
+     * @param string $field
      * @param mixed $value
      */
-    public function __construct($value)
+    public function __construct($field, $value)
     {
+        $this->field = $field;
         $this->value = $value;
+    }
+
+    /**
+     * @return string
+     */
+    public function getField()
+    {
+        return $this->field;
     }
 
     /**
