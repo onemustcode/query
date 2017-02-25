@@ -128,7 +128,7 @@ class Query
     /**
      * @param OrderingInterface $ordering
      */
-    public function AddOrdering(OrderingInterface $ordering)
+    public function addOrdering(OrderingInterface $ordering)
     {
         if (! in_array($ordering, $this->ordering, true)) {
             $this->ordering[] = $ordering;
