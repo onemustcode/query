@@ -3,8 +3,8 @@
 namespace OneMustCode\Query;
 
 use OneMustCode\Query\Paging\Paging;
-use OneMustCode\Query\Ordering\Ascending;
-use OneMustCode\Query\Ordering\Descending;
+use OneMustCode\Query\Sorting\Ascending;
+use OneMustCode\Query\Sorting\Descending;
 use OneMustCode\Query\Filters\Equals;
 use OneMustCode\Query\Filters\GreaterThan;
 use OneMustCode\Query\Filters\GreaterThanOrEquals;
@@ -28,7 +28,7 @@ class Builder
     ];
 
     /** @var array */
-    protected $whereComparisons = [
+    protected $filters = [
         'eq' => Equals::class,
         'neq' => NotEquals::class,
         'like' => Like::class,
