@@ -28,6 +28,10 @@ class Query
      */
     public function __construct(Paging $paging = null, array $filters = [], array $sortings = [], array $includes = [])
     {
+        if ($paging === null) {
+            $paging = new Paging();
+        }
+
         $this->paging = $paging;
 
         foreach ($filters as $filter) {
