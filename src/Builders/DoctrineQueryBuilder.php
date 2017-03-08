@@ -7,27 +7,23 @@ use OneMustCode\Query\Query;
 
 class DoctrineQueryBuilder
 {
-    /** @var array */
-    protected $acceptedFilters = [];
-
-    /** @var array */
-    protected $acceptedSortings = [];
-
     /**
      * @param Query $query
      * @param QueryBuilder|null $queryBuilder
+     * @param array $acceptedFilters
+     * @param array $acceptedSortings
      * @return QueryBuilder
      */
-    public function build(Query $query, QueryBuilder $queryBuilder = null)
+    public function build(Query $query, QueryBuilder $queryBuilder = null, array $acceptedFilters, array $acceptedSortings)
     {
         foreach ($query->getFilters() as $filter) {
             $expr = null;
 
-            if (! array_key_exists($filter->getField(), $this->acceptedFilters)) {
+            if (! array_key_exists($filter->getField(), $acceptedFilters)) {
                 continue;
             }
 
-            $field = $this->acceptedFilters[$filter->getField()];
+            $field = $acceptedFilters[$filter->getField()];
 
             switch ($filter->getOperator()) {
                 case 'null':
@@ -70,11 +66,11 @@ class DoctrineQueryBuilder
         foreach ($query->getSortings() as $sorting) {
             $expr = null;
 
-            if (! array_key_exists($sorting->getField(), $this->acceptedSortings)) {
+            if (! array_key_exists($sorting->getField(), $acceptedSortings)) {
                 continue;
             }
 
-            $field = $this->acceptedSortings[$sorting->getField()];
+            $field = $acceptedSortings[$sorting->getField()];
 
             switch ($sorting->getDirection()) {
                 case 'asc':
