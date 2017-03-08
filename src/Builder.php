@@ -60,8 +60,8 @@ class Builder
         $ordering = [];
         $includes = [];
 
-        if (isset($this->data['page'], $this->data['per_page'])) {
-            $paging = new Paging($this->data['page'], $this->data['per_page']);
+        if (isset($this->data['page'])) {
+            $paging = new Paging($this->data['page'], isset($this->data['per_page']) ? $this->data['per_page'] : 15);
         }
 
         if (isset($this->data['filters'])) {
