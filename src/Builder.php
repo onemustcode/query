@@ -60,9 +60,10 @@ class Builder
         $ordering = [];
         $includes = [];
 
-        if (isset($this->data['page'])) {
-            $paging = new Paging($this->data['page'], isset($this->data['per_page']) ? $this->data['per_page'] : 15);
-        }
+        $paging = new Paging(
+            isset($this->data['page']) ? $this->data['page'] : 1,
+            isset($this->data['per_page']) ? $this->data['per_page'] : 15
+        );
 
         if (isset($this->data['filters'])) {
             foreach ($this->data['filters'] as $field => $data) {
