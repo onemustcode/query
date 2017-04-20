@@ -149,15 +149,15 @@ $query = new Query(null, [
 // Only accept certain sortings that can be added to the doctrine query builder
 $acceptedSortings = [
     // Given field => Doctrine property
-    'age' => 'age',
+    'age' => 'e.age',
 ];
 
 // Only accept certain filters that can be added to the doctrine query builder
 $acceptedFilters = [
     // Given field => Doctrine property
-    'first_name' => 'first_name',
-    'last_name' => 'last_name',
-    'age' => 'age',
+    'first_name' => 'e.firstName',
+    'last_name' => 'e.lastName',
+    'age' => 'e.age',
 ];
 
 // Build the query
