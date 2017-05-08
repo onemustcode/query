@@ -33,10 +33,10 @@ class DoctrineQueryBuilder
                     $expr = $queryBuilder->expr()->isNotNull($field, $queryBuilder->expr()->literal($filter->getValue()));
                     break;
                 case 'in':
-                    $expr = $queryBuilder->expr()->in($field, $queryBuilder->expr()->literal(explode(',', $filter->getValue())));
+                    $expr = $queryBuilder->expr()->in($field, explode(',', $filter->getValue()));
                     break;
                 case 'nin':
-                    $expr = $queryBuilder->expr()->notIn($field, $queryBuilder->expr()->literal(explode(',', $filter->getValue())));
+                    $expr = $queryBuilder->expr()->notIn($field, explode(',', $filter->getValue()));
                     break;
                 case 'gte':
                     $expr = $queryBuilder->expr()->gte($field, $queryBuilder->expr()->literal($filter->getValue()));
