@@ -53,6 +53,9 @@ class DoctrineQueryBuilder
                 case 'eq':
                     $expr = $queryBuilder->expr()->eq($field, $queryBuilder->expr()->literal($filter->getValue()));
                     break;
+                case 'neq':
+                    $expr = $queryBuilder->expr()->neq($field, $queryBuilder->expr()->literal($filter->getValue()));
+                    break;
                 case 'like':
                     $expr = $queryBuilder->expr()->like($field, $queryBuilder->expr()->literal($filter->getValue()));
                     break;
