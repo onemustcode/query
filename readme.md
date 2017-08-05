@@ -4,7 +4,7 @@ todo: fix what Query is, add more info abouth the filters, sortings, paging and 
 ## Installation
 Require the Query library trough composer.
 ```
-composer require onemustwork/query
+composer require onemustcode/query
 ```
 
 ## Query
