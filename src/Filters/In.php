@@ -4,11 +4,13 @@ namespace OneMustCode\Query\Filters;
 
 class In extends AbstractFilter implements FilterInterface
 {
+    const OPERATOR = 'in';
+
     /**
      * @inheritdoc
      */
     public function getOperator()
     {
-        return 'in';
+        return self::OPERATOR;
     }
 }

@@ -3,10 +3,53 @@
 namespace OneMustCode\Query\Builders;
 
 use Doctrine\ORM\QueryBuilder as QueryBuilder;
+use OneMustCode\Query\Builders\Filters;
+use OneMustCode\Query\Builders\Filters\Expression\DoctrineEqualsFilterHandler;
+use OneMustCode\Query\Builders\Filters\Expression\DoctrineGreaterThanFilterHandler;
+use OneMustCode\Query\Builders\Filters\Expression\DoctrineGreaterThanOrEqualsFilterHandler;
+use OneMustCode\Query\Builders\Filters\Expression\DoctrineInFilterHandler;
+use OneMustCode\Query\Builders\Filters\Expression\DoctrineIsLessThanFilterHandler;
+use OneMustCode\Query\Builders\Filters\Expression\DoctrineIsLessThanOrEqualsFilterHandler;
+use OneMustCode\Query\Builders\Filters\Expression\DoctrineIsNotNullFilterHandler;
+use OneMustCode\Query\Builders\Filters\Expression\DoctrineIsNullFilterHandler;
+use OneMustCode\Query\Builders\Filters\Expression\DoctrineLikeFilterHandler;
+use OneMustCode\Query\Builders\Filters\Expression\DoctrineNotEqualsFilterHandler;
+use OneMustCode\Query\Builders\Filters\Expression\DoctrineNotInFilterHandler;
+use OneMustCode\Query\Builders\Filters\Expression\FilterHandler;
 use OneMustCode\Query\Query;
 
 class DoctrineQueryBuilder
 {
+    /** @var FilterHandler[] */
+    protected $filterHandlers;
+
+    /**
+     * @param FilterHandler[] $additionalFilterHandlers
+     */
+    public function __construct(array $additionalFilterHandlers = [])
+    {
+        $defaultFilterHandlers = [
+            new DoctrineEqualsFilterHandler(),
+            new DoctrineGreaterThanFilterHandler(),
+            new DoctrineGreaterThanOrEqualsFilterHandler(),
+            new DoctrineInFilterHandler(),
+            new DoctrineIsLessThanFilterHandler(),
+            new DoctrineIsLessThanOrEqualsFilterHandler(),
+            new DoctrineIsNotNullFilterHandler(),
+            new DoctrineIsNullFilterHandler(),
+            new DoctrineLikeFilterHandler(),
+            new DoctrineNotEqualsFilterHandler(),
+            new DoctrineNotInFilterHandler(),
+        ];
+
+        /** @var FilterHandler[] $filterHandlers */
+        $filterHandlers = array_merge($defaultFilterHandlers, $additionalFilterHandlers);
+
+        foreach ($filterHandlers as $filterHandler) {
+            $this->filterHandlers[$filterHandler->handles()] = $filterHandler;
+        }
+    }
+
     /**
      * @param Query $query
      * @param QueryBuilder|null $queryBuilder
@@ -23,47 +66,11 @@ class DoctrineQueryBuilder
                 continue;
             }
 
-            $field = $acceptedFilters[$filter->getField()];
-
-            switch ($filter->getOperator()) {
-                case 'null':
-                    $expr = $queryBuilder->expr()->isNull($field, $queryBuilder->expr()->literal($filter->getValue()));
-                    break;
-                case 'nnull':
-                    $expr = $queryBuilder->expr()->isNotNull($field, $queryBuilder->expr()->literal($filter->getValue()));
-                    break;
-                case 'in':
-                    $expr = $queryBuilder->expr()->in($field, explode(',', $filter->getValue()));
-                    break;
-                case 'nin':
-                    $expr = $queryBuilder->expr()->notIn($field, explode(',', $filter->getValue()));
-                    break;
-                case 'gte':
-                    $expr = $queryBuilder->expr()->gte($field, $queryBuilder->expr()->literal($filter->getValue()));
-                    break;
-                case 'gt':
-                    $expr = $queryBuilder->expr()->gt($field, $queryBuilder->expr()->literal($filter->getValue()));
-                    break;
-                case 'lt':
-                    $expr = $queryBuilder->expr()->lt($field, $queryBuilder->expr()->literal($filter->getValue()));
-                    break;
-                case 'lte':
-                    $expr = $queryBuilder->expr()->lte($field, $queryBuilder->expr()->literal($filter->getValue()));
-                    break;
-                case 'eq':
-                    $expr = $queryBuilder->expr()->eq($field, $queryBuilder->expr()->literal($filter->getValue()));
-                    break;
-                case 'neq':
-                    $expr = $queryBuilder->expr()->neq($field, $queryBuilder->expr()->literal($filter->getValue()));
-                    break;
-                case 'like':
-                    $expr = $queryBuilder->expr()->like($field, $queryBuilder->expr()->literal($filter->getValue()));
-                    break;
+            if (! array_key_exists($filter->getOperator(), $this->filterHandlers)) {
+                continue;
             }
 
-            if ($expr) {
-                $queryBuilder->andWhere($expr);
-            }
+            $this->filterHandlers[$filter->getOperator()]->addFilterToQueryBuilder($queryBuilder, $filter);
         }
 
         foreach ($query->getSortings() as $sorting) {

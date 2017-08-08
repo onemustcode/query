@@ -4,6 +4,8 @@ namespace OneMustCode\Query\Filters;
 
 class IsNull extends AbstractFilter implements FilterInterface
 {
+    const OPERATOR = 'null';
+
     /**
      * @param string $field
      */
@@ -17,6 +19,6 @@ class IsNull extends AbstractFilter implements FilterInterface
      */
     public function getOperator()
     {
-        return 'null';
+        return self::OPERATOR;
     }
 }
