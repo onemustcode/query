@@ -89,6 +89,8 @@ $query = Query::createFromIncludes([
 ```
 
 ## Builder
+_Warning: The Builder class is deprecated, use the transformer instead._
+
 The builder turns an given array to an Query instance;
 
 ```
@@ -107,6 +109,26 @@ $data = [
 
 $builder = new Builder($data);
 $query = $builder->build();
+```
+
+# Transformer
+The builder transforms an given array to an Query instance;
+```
+$data = [
+    'per_page' => 20,
+    'page' => 2,
+    'filters' => [
+        'age' => ['eq' => 15],
+        'last_name' => ['like' => 'doe%'],
+    ],
+    'sortings' => [
+        'first_name' => 'asc',
+        'score' => 'desc',
+    ],
+];
+
+$transformer = new Transformer();
+$query = $transformer->transform($data);
 ```
 
 ## Writer

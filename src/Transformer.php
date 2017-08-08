@@ -2,28 +2,23 @@
 
 namespace OneMustCode\Query;
 
-use OneMustCode\Query\Paging\Paging;
-use OneMustCode\Query\Sorting\Ascending;
-use OneMustCode\Query\Sorting\Descending;
 use OneMustCode\Query\Filters\Equals;
 use OneMustCode\Query\Filters\GreaterThan;
 use OneMustCode\Query\Filters\GreaterThanOrEquals;
 use OneMustCode\Query\Filters\In;
 use OneMustCode\Query\Filters\IsNotNull;
+use OneMustCode\Query\Filters\IsNull;
 use OneMustCode\Query\Filters\LessThan;
 use OneMustCode\Query\Filters\LessThanOrEquals;
 use OneMustCode\Query\Filters\Like;
 use OneMustCode\Query\Filters\NotEquals;
 use OneMustCode\Query\Filters\NotIn;
+use OneMustCode\Query\Paging\Paging;
+use OneMustCode\Query\Sorting\Ascending;
+use OneMustCode\Query\Sorting\Descending;
 
-/**
- * @deprecated Use Transformer instead
- */
-class Builder
+class Transformer
 {
-    /** @var array */
-    protected $data;
-
     /** @var array */
     protected $orderingDirections = [
         'asc' => Ascending::class,
@@ -31,32 +26,35 @@ class Builder
     ];
 
     /** @var array */
-    protected $filters = [
-        'eq' => Equals::class,
-        'neq' => NotEquals::class,
-        'like' => Like::class,
-        'gt' => GreaterThan::class,
-        'gte' => GreaterThanOrEquals::class,
-        'lt' => LessThan::class,
-        'lte' => LessThanOrEquals::class,
-        'in' => In::class,
-        'nin' => NotIn::class,
-        'null' => IsNotNull::class,
-        'nnull' => IsNotNull::class,
-    ];
+    protected $filters;
 
     /**
-     * @param array $data
+     * @param array $additionalFilters
      */
-    public function __construct(array $data)
+    public function __construct(array $additionalFilters = [])
     {
-        $this->data = $data;
+        $defaultFilters = [
+            'eq' => Equals::class,
+            'neq' => NotEquals::class,
+            'like' => Like::class,
+            'gt' => GreaterThan::class,
+            'gte' => GreaterThanOrEquals::class,
+            'lt' => LessThan::class,
+            'lte' => LessThanOrEquals::class,
+            'in' => In::class,
+            'nin' => NotIn::class,
+            'null' => IsNull::class,
+            'nnull' => IsNotNull::class,
+        ];
+
+        $this->filters = array_merge($defaultFilters, $additionalFilters);
     }
 
     /**
+     * @param array $data
      * @return Query
      */
-    public function build()
+    public function transform(array $data = [])
     {
         $paging = null;
         $filters = [];
@@ -64,12 +62,12 @@ class Builder
         $includes = [];
 
         $paging = new Paging(
-            isset($this->data['page']) ? $this->data['page'] : 1,
-            isset($this->data['per_page']) ? $this->data['per_page'] : 15
+            isset($data['page']) ? $data['page'] : 1,
+            isset($data['per_page']) ? $data['per_page'] : 15
         );
 
-        if (isset($this->data['filters'])) {
-            foreach ($this->data['filters'] as $field => $data) {
+        if (isset($data['filters'])) {
+            foreach ($data['filters'] as $field => $data) {
                 $comparison = key($data);
                 $value = reset($data);
                 if (array_key_exists($comparison, $this->filters)) {
@@ -78,16 +76,16 @@ class Builder
             }
         }
 
-        if (isset($this->data['include'])) {
-            foreach (explode(',', $this->data['include']) as $include) {
+        if (isset($data['include'])) {
+            foreach (explode(',', $data['include']) as $include) {
                 if (! empty($include)) {
                     $includes[] = $include;
                 }
             }
         }
 
-        if (isset($this->data['order_by'])) {
-            foreach ($this->data['order_by'] as $field => $direction) {
+        if (isset($data['order_by'])) {
+            foreach ($data['order_by'] as $field => $direction) {
                 if (array_key_exists($direction, $this->orderingDirections)) {
                     $ordering[] = new $this->orderingDirections[$direction]($field);
                 }
@@ -95,14 +93,5 @@ class Builder
         }
 
         return new Query($paging, $filters, $ordering, $includes);
-    }
-
-    /**
-     * @param array $data
-     * @return Query
-     */
-    public static function createFromArray(array $data)
-    {
-        return (new self($data))->build();
     }
 }
