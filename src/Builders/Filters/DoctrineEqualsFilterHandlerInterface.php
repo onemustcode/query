@@ -3,17 +3,17 @@
 namespace OneMustCode\Query\Builders\Filters\Expression;
 
 use Doctrine\ORM\QueryBuilder;
+use OneMustCode\Query\Filters\Equals;
 use OneMustCode\Query\Filters\FilterInterface;
-use OneMustCode\Query\Filters\IsNotNull;
 
-class DoctrineIsNotNullFilterHandler implements FilterHandler
+class DoctrineEqualsFilterHandlerInterface implements FilterHandlerInterface
 {
     /**
      * @inheritdoc
      */
     public function handles()
     {
-        return IsNotNull::OPERATOR;
+        return Equals::OPERATOR;
     }
 
     /**
@@ -22,10 +22,9 @@ class DoctrineIsNotNullFilterHandler implements FilterHandler
     public function addFilterToQueryBuilder(QueryBuilder $queryBuilder, $field, FilterInterface $filter)
     {
         $queryBuilder->andWhere(
-            $queryBuilder->expr()->isNotNull($field)
+            $queryBuilder->expr()->eq($field, $queryBuilder->expr()->literal($filter->getValue()))
         );
 
         return $queryBuilder;
     }
 }
-

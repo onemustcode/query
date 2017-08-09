@@ -4,45 +4,45 @@ namespace OneMustCode\Query\Builders;
 
 use Doctrine\ORM\QueryBuilder as QueryBuilder;
 use OneMustCode\Query\Builders\Filters;
-use OneMustCode\Query\Builders\Filters\Expression\DoctrineEqualsFilterHandler;
-use OneMustCode\Query\Builders\Filters\Expression\DoctrineGreaterThanFilterHandler;
-use OneMustCode\Query\Builders\Filters\Expression\DoctrineGreaterThanOrEqualsFilterHandler;
-use OneMustCode\Query\Builders\Filters\Expression\DoctrineInFilterHandler;
-use OneMustCode\Query\Builders\Filters\Expression\DoctrineIsLessThanFilterHandler;
-use OneMustCode\Query\Builders\Filters\Expression\DoctrineIsLessThanOrEqualsFilterHandler;
-use OneMustCode\Query\Builders\Filters\Expression\DoctrineIsNotNullFilterHandler;
-use OneMustCode\Query\Builders\Filters\Expression\DoctrineIsNullFilterHandler;
-use OneMustCode\Query\Builders\Filters\Expression\DoctrineLikeFilterHandler;
-use OneMustCode\Query\Builders\Filters\Expression\DoctrineNotEqualsFilterHandler;
-use OneMustCode\Query\Builders\Filters\Expression\DoctrineNotInFilterHandler;
-use OneMustCode\Query\Builders\Filters\Expression\FilterHandler;
+use OneMustCode\Query\Builders\Filters\Expression\DoctrineEqualsFilterHandlerInterface;
+use OneMustCode\Query\Builders\Filters\Expression\DoctrineGreaterThanFilterHandlerInterface;
+use OneMustCode\Query\Builders\Filters\Expression\DoctrineGreaterThanOrEqualsFilterHandlerInterface;
+use OneMustCode\Query\Builders\Filters\Expression\DoctrineInFilterHandlerInterface;
+use OneMustCode\Query\Builders\Filters\Expression\DoctrineIsLessThanFilterHandlerInterface;
+use OneMustCode\Query\Builders\Filters\Expression\DoctrineIsLessThanOrEqualsFilterHandlerInterface;
+use OneMustCode\Query\Builders\Filters\Expression\DoctrineIsNotNullFilterHandlerInterface;
+use OneMustCode\Query\Builders\Filters\Expression\DoctrineIsNullFilterHandlerInterface;
+use OneMustCode\Query\Builders\Filters\Expression\DoctrineLikeFilterHandlerInterface;
+use OneMustCode\Query\Builders\Filters\Expression\DoctrineNotEqualsFilterHandlerInterface;
+use OneMustCode\Query\Builders\Filters\Expression\DoctrineNotInFilterHandlerInterface;
+use OneMustCode\Query\Builders\Filters\Expression\FilterHandlerInterface;
 use OneMustCode\Query\Query;
 
 class DoctrineQueryBuilder
 {
-    /** @var FilterHandler[] */
+    /** @var FilterHandlerInterface[] */
     protected $filterHandlers;
 
     /**
-     * @param FilterHandler[] $additionalFilterHandlers
+     * @param FilterHandlerInterface[] $additionalFilterHandlers
      */
     public function __construct(array $additionalFilterHandlers = [])
     {
         $defaultFilterHandlers = [
-            new DoctrineEqualsFilterHandler(),
-            new DoctrineGreaterThanFilterHandler(),
-            new DoctrineGreaterThanOrEqualsFilterHandler(),
-            new DoctrineInFilterHandler(),
-            new DoctrineIsLessThanFilterHandler(),
-            new DoctrineIsLessThanOrEqualsFilterHandler(),
-            new DoctrineIsNotNullFilterHandler(),
-            new DoctrineIsNullFilterHandler(),
-            new DoctrineLikeFilterHandler(),
-            new DoctrineNotEqualsFilterHandler(),
-            new DoctrineNotInFilterHandler(),
+            new DoctrineEqualsFilterHandlerInterface(),
+            new DoctrineGreaterThanFilterHandlerInterface(),
+            new DoctrineGreaterThanOrEqualsFilterHandlerInterface(),
+            new DoctrineInFilterHandlerInterface(),
+            new DoctrineIsLessThanFilterHandlerInterface(),
+            new DoctrineIsLessThanOrEqualsFilterHandlerInterface(),
+            new DoctrineIsNotNullFilterHandlerInterface(),
+            new DoctrineIsNullFilterHandlerInterface(),
+            new DoctrineLikeFilterHandlerInterface(),
+            new DoctrineNotEqualsFilterHandlerInterface(),
+            new DoctrineNotInFilterHandlerInterface(),
         ];
 
-        /** @var FilterHandler[] $filterHandlers */
+        /** @var FilterHandlerInterface[] $filterHandlers */
         $filterHandlers = array_merge($defaultFilterHandlers, $additionalFilterHandlers);
 
         foreach ($filterHandlers as $filterHandler) {

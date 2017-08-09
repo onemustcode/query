@@ -6,7 +6,7 @@ use Doctrine\ORM\QueryBuilder;
 use OneMustCode\Query\Filters\FilterInterface;
 use OneMustCode\Query\Filters\GreaterThanOrEquals;
 
-class DoctrineGreaterThanOrEqualsFilterHandler implements FilterHandler
+class DoctrineGreaterThanOrEqualsFilterHandlerInterface implements FilterHandlerInterface
 {
     /**
      * @inheritdoc

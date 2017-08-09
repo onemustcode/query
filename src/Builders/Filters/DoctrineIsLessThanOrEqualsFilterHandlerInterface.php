@@ -4,16 +4,16 @@ namespace OneMustCode\Query\Builders\Filters\Expression;
 
 use Doctrine\ORM\QueryBuilder;
 use OneMustCode\Query\Filters\FilterInterface;
-use OneMustCode\Query\Filters\In;
+use OneMustCode\Query\Filters\LessThanOrEquals;
 
-class DoctrineInFilterHandler implements FilterHandler
+class DoctrineIsLessThanOrEqualsFilterHandlerInterface implements FilterHandlerInterface
 {
     /**
      * @inheritdoc
      */
     public function handles()
     {
-        return In::OPERATOR;
+        return LessThanOrEquals::OPERATOR;
     }
 
     /**
@@ -22,7 +22,7 @@ class DoctrineInFilterHandler implements FilterHandler
     public function addFilterToQueryBuilder(QueryBuilder $queryBuilder, $field, FilterInterface $filter)
     {
         $queryBuilder->andWhere(
-            $queryBuilder->expr()->in($field, explode(',', $filter->getValue()))
+            $queryBuilder->expr()->lte($field, $queryBuilder->expr()->literal($filter->getValue()))
         );
 
         return $queryBuilder;

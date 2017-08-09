@@ -4,16 +4,16 @@ namespace OneMustCode\Query\Builders\Filters\Expression;
 
 use Doctrine\ORM\QueryBuilder;
 use OneMustCode\Query\Filters\FilterInterface;
-use OneMustCode\Query\Filters\GreaterThan;
+use OneMustCode\Query\Filters\IsNull;
 
-class DoctrineGreaterThanFilterHandler implements FilterHandler
+class DoctrineIsNullFilterHandlerInterface implements FilterHandlerInterface
 {
     /**
      * @inheritdoc
      */
     public function handles()
     {
-        return GreaterThan::OPERATOR;
+        return IsNull::OPERATOR;
     }
 
     /**
@@ -22,9 +22,10 @@ class DoctrineGreaterThanFilterHandler implements FilterHandler
     public function addFilterToQueryBuilder(QueryBuilder $queryBuilder, $field, FilterInterface $filter)
     {
         $queryBuilder->andWhere(
-            $queryBuilder->expr()->gt($field, $queryBuilder->expr()->literal($filter->getValue()))
+            $queryBuilder->expr()->isNull($field)
         );
 
         return $queryBuilder;
     }
 }
+

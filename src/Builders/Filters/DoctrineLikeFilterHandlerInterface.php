@@ -6,7 +6,7 @@ use Doctrine\ORM\QueryBuilder;
 use OneMustCode\Query\Filters\FilterInterface;
 use OneMustCode\Query\Filters\Like;
 
-class DoctrineLikeFilterHandler implements FilterHandler
+class DoctrineLikeFilterHandlerInterface implements FilterHandlerInterface
 {
     /**
      * @inheritdoc

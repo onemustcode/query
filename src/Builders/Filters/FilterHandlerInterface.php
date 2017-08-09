@@ -5,7 +5,7 @@ namespace OneMustCode\Query\Builders\Filters\Expression;
 use Doctrine\ORM\QueryBuilder;
 use OneMustCode\Query\Filters\FilterInterface;
 
-interface FilterHandler
+interface FilterHandlerInterface
 {
     /**
      * @return string
