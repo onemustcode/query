@@ -9,7 +9,7 @@ use OneMustCode\Query\Filters\IsNull;
 class DoctrineIsNullFilterHandler implements FilterHandler
 {
     /**
-     * @return string
+     * @inheritdoc
      */
     public function handles()
     {
@@ -17,14 +17,12 @@ class DoctrineIsNullFilterHandler implements FilterHandler
     }
 
     /**
-     * @param QueryBuilder $queryBuilder
-     * @param FilterInterface $filter
-     * @return QueryBuilder
+     * @inheritdoc
      */
-    public function addFilterToQueryBuilder(QueryBuilder $queryBuilder, FilterInterface $filter)
+    public function addFilterToQueryBuilder(QueryBuilder $queryBuilder, $field, FilterInterface $filter)
     {
         $queryBuilder->andWhere(
-            $queryBuilder->expr()->isNull($filter->getField())
+            $queryBuilder->expr()->isNull($field)
         );
 
         return $queryBuilder;

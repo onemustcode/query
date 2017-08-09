@@ -70,7 +70,9 @@ class DoctrineQueryBuilder
                 continue;
             }
 
-            $this->filterHandlers[$filter->getOperator()]->addFilterToQueryBuilder($queryBuilder, $filter);
+            $field = $acceptedFilters[$filter->getField()];
+
+            $this->filterHandlers[$filter->getOperator()]->addFilterToQueryBuilder($queryBuilder, $field, $filter);
         }
 
         foreach ($query->getSortings() as $sorting) {

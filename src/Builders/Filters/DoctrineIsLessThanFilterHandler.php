@@ -9,7 +9,7 @@ use OneMustCode\Query\Filters\LessThan;
 class DoctrineIsLessThanFilterHandler implements FilterHandler
 {
     /**
-     * @return string
+     * @inheritdoc
      */
     public function handles()
     {
@@ -17,14 +17,12 @@ class DoctrineIsLessThanFilterHandler implements FilterHandler
     }
 
     /**
-     * @param QueryBuilder $queryBuilder
-     * @param FilterInterface $filter
-     * @return QueryBuilder
+     * @inheritdoc
      */
-    public function addFilterToQueryBuilder(QueryBuilder $queryBuilder, FilterInterface $filter)
+    public function addFilterToQueryBuilder(QueryBuilder $queryBuilder, $field, FilterInterface $filter)
     {
         $queryBuilder->andWhere(
-            $queryBuilder->expr()->lt($filter->getField(), $queryBuilder->expr()->literal($filter->getValue()))
+            $queryBuilder->expr()->lt($field, $queryBuilder->expr()->literal($filter->getValue()))
         );
 
         return $queryBuilder;

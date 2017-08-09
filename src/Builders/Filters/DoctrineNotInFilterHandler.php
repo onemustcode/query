@@ -9,7 +9,7 @@ use OneMustCode\Query\Filters\NotIn;
 class DoctrineNotInFilterHandler implements FilterHandler
 {
     /**
-     * @return string
+     * @inheritdoc
      */
     public function handles()
     {
@@ -17,14 +17,12 @@ class DoctrineNotInFilterHandler implements FilterHandler
     }
 
     /**
-     * @param QueryBuilder $queryBuilder
-     * @param FilterInterface $filter
-     * @return QueryBuilder
+     * @inheritdoc
      */
-    public function addFilterToQueryBuilder(QueryBuilder $queryBuilder, FilterInterface $filter)
+    public function addFilterToQueryBuilder(QueryBuilder $queryBuilder, $field, FilterInterface $filter)
     {
         $queryBuilder->andWhere(
-            $queryBuilder->expr()->notIn($filter->getField(), explode(',', $filter->getValue()))
+            $queryBuilder->expr()->notIn($field, explode(',', $filter->getValue()))
         );
 
         return $queryBuilder;

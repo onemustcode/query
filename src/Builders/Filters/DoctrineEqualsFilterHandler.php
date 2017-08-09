@@ -9,7 +9,7 @@ use OneMustCode\Query\Filters\FilterInterface;
 class DoctrineEqualsFilterHandler implements FilterHandler
 {
     /**
-     * @return string
+     * @inheritdoc
      */
     public function handles()
     {
@@ -17,14 +17,12 @@ class DoctrineEqualsFilterHandler implements FilterHandler
     }
 
     /**
-     * @param QueryBuilder $queryBuilder
-     * @param FilterInterface $filter
-     * @return QueryBuilder
+     * @inheritdoc
      */
-    public function addFilterToQueryBuilder(QueryBuilder $queryBuilder, FilterInterface $filter)
+    public function addFilterToQueryBuilder(QueryBuilder $queryBuilder, $field, FilterInterface $filter)
     {
         $queryBuilder->andWhere(
-            $queryBuilder->expr()->eq($filter->getField(), $queryBuilder->expr()->literal($filter->getValue()))
+            $queryBuilder->expr()->eq($field, $queryBuilder->expr()->literal($filter->getValue()))
         );
 
         return $queryBuilder;

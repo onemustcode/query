@@ -9,7 +9,7 @@ use OneMustCode\Query\Filters\Like;
 class DoctrineLikeFilterHandler implements FilterHandler
 {
     /**
-     * @return string
+     * @inheritdoc
      */
     public function handles()
     {
@@ -17,14 +17,12 @@ class DoctrineLikeFilterHandler implements FilterHandler
     }
 
     /**
-     * @param QueryBuilder $queryBuilder
-     * @param FilterInterface $filter
-     * @return QueryBuilder
+     * @inheritdoc
      */
-    public function addFilterToQueryBuilder(QueryBuilder $queryBuilder, FilterInterface $filter)
+    public function addFilterToQueryBuilder(QueryBuilder $queryBuilder, $field, FilterInterface $filter)
     {
         $queryBuilder->andWhere(
-            $queryBuilder->expr()->like($filter->getField(), $queryBuilder->expr()->literal($filter->getValue()))
+            $queryBuilder->expr()->like($field, $queryBuilder->expr()->literal($filter->getValue()))
         );
 
         return $queryBuilder;

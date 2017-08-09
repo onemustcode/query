@@ -14,8 +14,9 @@ interface FilterHandler
 
     /**
      * @param QueryBuilder $queryBuilder
+     * @param string $field
      * @param FilterInterface $filter
      * @return QueryBuilder
      */
-    public function addFilterToQueryBuilder(QueryBuilder $queryBuilder, FilterInterface $filter);
+    public function addFilterToQueryBuilder(QueryBuilder $queryBuilder, $field, FilterInterface $filter);
 }
