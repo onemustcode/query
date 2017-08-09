@@ -89,6 +89,8 @@ $query = Query::createFromIncludes([
 ```
 
 ## Builder
+_Warning: The Builder class is deprecated, use the transformer instead._
+
 The builder turns an given array to an Query instance;
 
 ```
@@ -107,6 +109,34 @@ $data = [
 
 $builder = new Builder($data);
 $query = $builder->build();
+```
+
+# Transformer
+The builder transforms an given array to an Query instance;
+```
+$data = [
+    'per_page' => 20,
+    'page' => 2,
+    'filters' => [
+        'age' => ['eq' => 15],
+        'last_name' => ['like' => 'doe%'],
+    ],
+    'sortings' => [
+        'first_name' => 'asc',
+        'score' => 'desc',
+    ],
+];
+
+$transformer = new Transformer();
+$query = $transformer->transform($data);
+```
+
+It is possible to add your own custom filters.
+In order to do this you should pass them as an associative array in the constructor (note that the filter should implement the OneMustCode\Query\Filters\FilterInterface]).
+The key should be the filters's operator and the value the filter's FQN;
+```
+$transformer = new Transformer([CustomFilter::OPERATOR => CustomFilter::class]);
+$query = $transformer->transform($data);
 ```
 
 ## Writer
@@ -161,11 +191,18 @@ $acceptedFilters = [
 ];
 
 // Build the query
-$queryBuilder = (DoctrineQueryBuilder())->build($query, $queryBuilder, $acceptedFilters, $acceptedSortings);
+$queryBuilder = (new QueryBuilder())->build($query, $queryBuilder, $acceptedFilters, $acceptedSortings);
 
 // Retrieve the results via Doctrine
 $results = $queryBuilder->getQuery()->getResults();
 ```
+
+It is possible to add your own custom filter handlers.
+In order to do this you should pass in the handler in the QueryBuilder's constructor (note that the filter handler should implement the OneMustCode\Query\Builders\Doctrine\Filters\FilterHandlerInterface);
+```
+$queryBuilder = (new QueryBuilder([new CustomFilterHandler()]))->build($query, $queryBuilder, $acceptedFilters, $acceptedSortings);
+```
+
 
 License
 ----

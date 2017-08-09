@@ -4,11 +4,13 @@ namespace OneMustCode\Query\Filters;
 
 class GreaterThan extends AbstractFilter implements FilterInterface
 {
+    const OPERATOR = 'gt';
+
     /**
      * @inheritdoc
      */
     public function getOperator()
     {
-        return 'gt';
+        return self::OPERATOR;
     }
 }
