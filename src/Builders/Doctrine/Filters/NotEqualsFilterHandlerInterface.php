@@ -1,12 +1,12 @@
 <?php
 
-namespace OneMustCode\Query\Builders\Filters\Expression;
+namespace OneMustCode\Query\Builders\Doctrine\Filters;
 
 use Doctrine\ORM\QueryBuilder;
 use OneMustCode\Query\Filters\FilterInterface;
 use OneMustCode\Query\Filters\NotEquals;
 
-class DoctrineNotEqualsFilterHandlerInterface implements FilterHandlerInterface
+class NotEqualsFilterHandlerInterface implements FilterHandlerInterface
 {
     /**
      * @inheritdoc

@@ -1,19 +1,19 @@
 <?php
 
-namespace OneMustCode\Query\Builders\Filters\Expression;
+namespace OneMustCode\Query\Builders\Doctrine\Filters;
 
 use Doctrine\ORM\QueryBuilder;
 use OneMustCode\Query\Filters\FilterInterface;
-use OneMustCode\Query\Filters\LessThan;
+use OneMustCode\Query\Filters\In;
 
-class DoctrineIsLessThanFilterHandlerInterface implements FilterHandlerInterface
+class InFilterHandlerInterface implements FilterHandlerInterface
 {
     /**
      * @inheritdoc
      */
     public function handles()
     {
-        return LessThan::OPERATOR;
+        return In::OPERATOR;
     }
 
     /**
@@ -22,7 +22,7 @@ class DoctrineIsLessThanFilterHandlerInterface implements FilterHandlerInterface
     public function addFilterToQueryBuilder(QueryBuilder $queryBuilder, $field, FilterInterface $filter)
     {
         $queryBuilder->andWhere(
-            $queryBuilder->expr()->lt($field, $queryBuilder->expr()->literal($filter->getValue()))
+            $queryBuilder->expr()->in($field, explode(',', $filter->getValue()))
         );
 
         return $queryBuilder;

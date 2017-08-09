@@ -1,19 +1,19 @@
 <?php
 
-namespace OneMustCode\Query\Builders\Filters\Expression;
+namespace OneMustCode\Query\Builders\Doctrine\Filters;
 
 use Doctrine\ORM\QueryBuilder;
 use OneMustCode\Query\Filters\FilterInterface;
-use OneMustCode\Query\Filters\GreaterThan;
+use OneMustCode\Query\Filters\LessThanOrEquals;
 
-class DoctrineGreaterThanFilterHandlerInterface implements FilterHandlerInterface
+class IsLessThanOrEqualsFilterHandlerInterface implements FilterHandlerInterface
 {
     /**
      * @inheritdoc
      */
     public function handles()
     {
-        return GreaterThan::OPERATOR;
+        return LessThanOrEquals::OPERATOR;
     }
 
     /**
@@ -22,9 +22,10 @@ class DoctrineGreaterThanFilterHandlerInterface implements FilterHandlerInterfac
     public function addFilterToQueryBuilder(QueryBuilder $queryBuilder, $field, FilterInterface $filter)
     {
         $queryBuilder->andWhere(
-            $queryBuilder->expr()->gt($field, $queryBuilder->expr()->literal($filter->getValue()))
+            $queryBuilder->expr()->lte($field, $queryBuilder->expr()->literal($filter->getValue()))
         );
 
         return $queryBuilder;
     }
 }
+

@@ -131,6 +131,14 @@ $transformer = new Transformer();
 $query = $transformer->transform($data);
 ```
 
+It is possible to add your own custom filters.
+In order to do this you should pass them as an associative array in the constructor (note that the filter should implement the OneMustCode\Query\Filters\FilterInterface]).
+The key should be the filters's operator and the value the filter's FQN;
+```
+$transformer = new Transformer([CustomFilter::OPERATOR => CustomFilter::class]);
+$query = $transformer->transform($data);
+```
+
 ## Writer
 The writer can export the given Query instance to json, query parameters and an array.
 
@@ -183,11 +191,18 @@ $acceptedFilters = [
 ];
 
 // Build the query
-$queryBuilder = (DoctrineQueryBuilder())->build($query, $queryBuilder, $acceptedFilters, $acceptedSortings);
+$queryBuilder = (new QueryBuilder())->build($query, $queryBuilder, $acceptedFilters, $acceptedSortings);
 
 // Retrieve the results via Doctrine
 $results = $queryBuilder->getQuery()->getResults();
 ```
+
+It is possible to add your own custom filter handlers.
+In order to do this you should pass in the handler in the QueryBuilder's constructor (note that the filter handler should implement the OneMustCode\Query\Builders\Doctrine\Filters\FilterHandlerInterface);
+```
+$queryBuilder = (new QueryBuilder([new CustomFilterHandler()]))->build($query, $queryBuilder, $acceptedFilters, $acceptedSortings);
+```
+
 
 License
 ----

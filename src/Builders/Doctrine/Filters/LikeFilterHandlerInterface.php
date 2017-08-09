@@ -1,19 +1,19 @@
 <?php
 
-namespace OneMustCode\Query\Builders\Filters\Expression;
+namespace OneMustCode\Query\Builders\Doctrine\Filters;
 
 use Doctrine\ORM\QueryBuilder;
 use OneMustCode\Query\Filters\FilterInterface;
-use OneMustCode\Query\Filters\IsNotNull;
+use OneMustCode\Query\Filters\Like;
 
-class DoctrineIsNotNullFilterHandlerInterface implements FilterHandlerInterface
+class LikeFilterHandlerInterface implements FilterHandlerInterface
 {
     /**
      * @inheritdoc
      */
     public function handles()
     {
-        return IsNotNull::OPERATOR;
+        return Like::OPERATOR;
     }
 
     /**
@@ -22,7 +22,7 @@ class DoctrineIsNotNullFilterHandlerInterface implements FilterHandlerInterface
     public function addFilterToQueryBuilder(QueryBuilder $queryBuilder, $field, FilterInterface $filter)
     {
         $queryBuilder->andWhere(
-            $queryBuilder->expr()->isNotNull($field)
+            $queryBuilder->expr()->like($field, $queryBuilder->expr()->literal($filter->getValue()))
         );
 
         return $queryBuilder;

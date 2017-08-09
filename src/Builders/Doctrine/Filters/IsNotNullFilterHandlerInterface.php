@@ -1,19 +1,19 @@
 <?php
 
-namespace OneMustCode\Query\Builders\Filters\Expression;
+namespace OneMustCode\Query\Builders\Doctrine\Filters;
 
 use Doctrine\ORM\QueryBuilder;
 use OneMustCode\Query\Filters\FilterInterface;
-use OneMustCode\Query\Filters\LessThanOrEquals;
+use OneMustCode\Query\Filters\IsNotNull;
 
-class DoctrineIsLessThanOrEqualsFilterHandlerInterface implements FilterHandlerInterface
+class IsNotNullFilterHandlerInterface implements FilterHandlerInterface
 {
     /**
      * @inheritdoc
      */
     public function handles()
     {
-        return LessThanOrEquals::OPERATOR;
+        return IsNotNull::OPERATOR;
     }
 
     /**
@@ -22,7 +22,7 @@ class DoctrineIsLessThanOrEqualsFilterHandlerInterface implements FilterHandlerI
     public function addFilterToQueryBuilder(QueryBuilder $queryBuilder, $field, FilterInterface $filter)
     {
         $queryBuilder->andWhere(
-            $queryBuilder->expr()->lte($field, $queryBuilder->expr()->literal($filter->getValue()))
+            $queryBuilder->expr()->isNotNull($field)
         );
 
         return $queryBuilder;

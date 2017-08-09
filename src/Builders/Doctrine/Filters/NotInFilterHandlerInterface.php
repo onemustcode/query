@@ -1,12 +1,12 @@
 <?php
 
-namespace OneMustCode\Query\Builders\Filters\Expression;
+namespace OneMustCode\Query\Builders\Doctrine\Filters;
 
 use Doctrine\ORM\QueryBuilder;
 use OneMustCode\Query\Filters\FilterInterface;
 use OneMustCode\Query\Filters\NotIn;
 
-class DoctrineNotInFilterHandlerInterface implements FilterHandlerInterface
+class NotInFilterHandlerInterface implements FilterHandlerInterface
 {
     /**
      * @inheritdoc

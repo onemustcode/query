@@ -1,19 +1,19 @@
 <?php
 
-namespace OneMustCode\Query\Builders\Filters\Expression;
+namespace OneMustCode\Query\Builders\Doctrine\Filters;
 
 use Doctrine\ORM\QueryBuilder;
 use OneMustCode\Query\Filters\FilterInterface;
-use OneMustCode\Query\Filters\Like;
+use OneMustCode\Query\Filters\GreaterThanOrEquals;
 
-class DoctrineLikeFilterHandlerInterface implements FilterHandlerInterface
+class GreaterThanOrEqualsFilterHandlerInterface implements FilterHandlerInterface
 {
     /**
      * @inheritdoc
      */
     public function handles()
     {
-        return Like::OPERATOR;
+        return GreaterThanOrEquals::OPERATOR;
     }
 
     /**
@@ -22,7 +22,7 @@ class DoctrineLikeFilterHandlerInterface implements FilterHandlerInterface
     public function addFilterToQueryBuilder(QueryBuilder $queryBuilder, $field, FilterInterface $filter)
     {
         $queryBuilder->andWhere(
-            $queryBuilder->expr()->like($field, $queryBuilder->expr()->literal($filter->getValue()))
+            $queryBuilder->expr()->gte($field, $queryBuilder->expr()->literal($filter->getValue()))
         );
 
         return $queryBuilder;

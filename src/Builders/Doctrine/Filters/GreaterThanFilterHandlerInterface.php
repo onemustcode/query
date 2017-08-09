@@ -1,19 +1,19 @@
 <?php
 
-namespace OneMustCode\Query\Builders\Filters\Expression;
+namespace OneMustCode\Query\Builders\Doctrine\Filters;
 
 use Doctrine\ORM\QueryBuilder;
 use OneMustCode\Query\Filters\FilterInterface;
-use OneMustCode\Query\Filters\IsNull;
+use OneMustCode\Query\Filters\GreaterThan;
 
-class DoctrineIsNullFilterHandlerInterface implements FilterHandlerInterface
+class GreaterThanFilterHandlerInterface implements FilterHandlerInterface
 {
     /**
      * @inheritdoc
      */
     public function handles()
     {
-        return IsNull::OPERATOR;
+        return GreaterThan::OPERATOR;
     }
 
     /**
@@ -22,10 +22,9 @@ class DoctrineIsNullFilterHandlerInterface implements FilterHandlerInterface
     public function addFilterToQueryBuilder(QueryBuilder $queryBuilder, $field, FilterInterface $filter)
     {
         $queryBuilder->andWhere(
-            $queryBuilder->expr()->isNull($field)
+            $queryBuilder->expr()->gt($field, $queryBuilder->expr()->literal($filter->getValue()))
         );
 
         return $queryBuilder;
     }
 }
-
