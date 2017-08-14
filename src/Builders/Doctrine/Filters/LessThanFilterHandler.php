@@ -3,17 +3,17 @@
 namespace OneMustCode\Query\Builders\Doctrine\Filters;
 
 use Doctrine\ORM\QueryBuilder;
-use OneMustCode\Query\Filters\Equals;
 use OneMustCode\Query\Filters\FilterInterface;
+use OneMustCode\Query\Filters\LessThan;
 
-class EqualsFilterHandlerInterface implements FilterHandlerInterface
+class LessThanFilterHandler implements FilterHandlerInterface
 {
     /**
      * @inheritdoc
      */
     public function handles()
     {
-        return Equals::OPERATOR;
+        return LessThan::OPERATOR;
     }
 
     /**
@@ -22,9 +22,10 @@ class EqualsFilterHandlerInterface implements FilterHandlerInterface
     public function addFilterToQueryBuilder(QueryBuilder $queryBuilder, $field, FilterInterface $filter)
     {
         $queryBuilder->andWhere(
-            $queryBuilder->expr()->eq($field, $queryBuilder->expr()->literal($filter->getValue()))
+            $queryBuilder->expr()->lt($field, $queryBuilder->expr()->literal($filter->getValue()))
         );
 
         return $queryBuilder;
     }
 }
+

@@ -4,16 +4,16 @@ namespace OneMustCode\Query\Builders\Doctrine\Filters;
 
 use Doctrine\ORM\QueryBuilder;
 use OneMustCode\Query\Filters\FilterInterface;
-use OneMustCode\Query\Filters\NotIn;
+use OneMustCode\Query\Filters\In;
 
-class NotInFilterHandlerInterface implements FilterHandlerInterface
+class InFilterHandler implements FilterHandlerInterface
 {
     /**
      * @inheritdoc
      */
     public function handles()
     {
-        return NotIn::OPERATOR;
+        return In::OPERATOR;
     }
 
     /**
@@ -22,7 +22,7 @@ class NotInFilterHandlerInterface implements FilterHandlerInterface
     public function addFilterToQueryBuilder(QueryBuilder $queryBuilder, $field, FilterInterface $filter)
     {
         $queryBuilder->andWhere(
-            $queryBuilder->expr()->notIn($field, explode(',', $filter->getValue()))
+            $queryBuilder->expr()->in($field, explode(',', $filter->getValue()))
         );
 
         return $queryBuilder;

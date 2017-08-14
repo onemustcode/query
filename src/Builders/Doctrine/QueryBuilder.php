@@ -3,17 +3,17 @@
 namespace OneMustCode\Query\Builders\Doctrine;
 
 use Doctrine\ORM\QueryBuilder as DoctrineQueryBuilder;
-use OneMustCode\Query\Builders\Doctrine\Filters\EqualsFilterHandlerInterface;
-use OneMustCode\Query\Builders\Doctrine\Filters\GreaterThanFilterHandlerInterface;
-use OneMustCode\Query\Builders\Doctrine\Filters\GreaterThanOrEqualsFilterHandlerInterface;
-use OneMustCode\Query\Builders\Doctrine\Filters\InFilterHandlerInterface;
-use OneMustCode\Query\Builders\Doctrine\Filters\IsLessThanFilterHandlerInterface;
-use OneMustCode\Query\Builders\Doctrine\Filters\IsLessThanOrEqualsFilterHandlerInterface;
-use OneMustCode\Query\Builders\Doctrine\Filters\IsNotNullFilterHandlerInterface;
-use OneMustCode\Query\Builders\Doctrine\Filters\IsNullFilterHandlerInterface;
-use OneMustCode\Query\Builders\Doctrine\Filters\LikeFilterHandlerInterface;
-use OneMustCode\Query\Builders\Doctrine\Filters\NotEqualsFilterHandlerInterface;
-use OneMustCode\Query\Builders\Doctrine\Filters\NotInFilterHandlerInterface;
+use OneMustCode\Query\Builders\Doctrine\Filters\EqualsFilterHandler;
+use OneMustCode\Query\Builders\Doctrine\Filters\GreaterThanFilterHandler;
+use OneMustCode\Query\Builders\Doctrine\Filters\GreaterThanOrEqualsFilterHandler;
+use OneMustCode\Query\Builders\Doctrine\Filters\InFilterHandler;
+use OneMustCode\Query\Builders\Doctrine\Filters\LessThanFilterHandler;
+use OneMustCode\Query\Builders\Doctrine\Filters\LessThanOrEqualsFilterHandler;
+use OneMustCode\Query\Builders\Doctrine\Filters\IsNotNullFilterHandler;
+use OneMustCode\Query\Builders\Doctrine\Filters\IsNullFilterHandler;
+use OneMustCode\Query\Builders\Doctrine\Filters\LikeFilterHandler;
+use OneMustCode\Query\Builders\Doctrine\Filters\NotEqualsFilterHandler;
+use OneMustCode\Query\Builders\Doctrine\Filters\NotInFilterHandler;
 use OneMustCode\Query\Builders\Doctrine\Filters\FilterHandlerInterface;
 use OneMustCode\Query\Query;
 
@@ -28,17 +28,17 @@ class QueryBuilder
     public function __construct(array $additionalFilterHandlers = [])
     {
         $defaultFilterHandlers = [
-            new EqualsFilterHandlerInterface(),
-            new GreaterThanFilterHandlerInterface(),
-            new GreaterThanOrEqualsFilterHandlerInterface(),
-            new InFilterHandlerInterface(),
-            new IsLessThanFilterHandlerInterface(),
-            new IsLessThanOrEqualsFilterHandlerInterface(),
-            new IsNotNullFilterHandlerInterface(),
-            new IsNullFilterHandlerInterface(),
-            new LikeFilterHandlerInterface(),
-            new NotEqualsFilterHandlerInterface(),
-            new NotInFilterHandlerInterface(),
+            new EqualsFilterHandler(),
+            new GreaterThanFilterHandler(),
+            new GreaterThanOrEqualsFilterHandler(),
+            new InFilterHandler(),
+            new LessThanFilterHandler(),
+            new LessThanOrEqualsFilterHandler(),
+            new IsNotNullFilterHandler(),
+            new IsNullFilterHandler(),
+            new LikeFilterHandler(),
+            new NotEqualsFilterHandler(),
+            new NotInFilterHandler(),
         ];
 
         /** @var FilterHandlerInterface[] $filterHandlers */
