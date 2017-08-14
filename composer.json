@@ -16,7 +16,8 @@
     "require-dev": {
         "symfony/var-dumper": "^3.2",
         "phpunit/phpunit": "^4.0",
-        "mockery/mockery": "dev-master"
+        "mockery/mockery": "dev-master",
+        "illuminate/database": "^5.4"
     },
     "autoload": {
         "psr-4": {
