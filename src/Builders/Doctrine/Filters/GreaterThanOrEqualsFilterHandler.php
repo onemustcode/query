@@ -4,16 +4,16 @@ namespace OneMustCode\Query\Builders\Doctrine\Filters;
 
 use Doctrine\ORM\QueryBuilder;
 use OneMustCode\Query\Filters\FilterInterface;
-use OneMustCode\Query\Filters\GreaterThan;
+use OneMustCode\Query\Filters\GreaterThanOrEquals;
 
-class GreaterThanFilterHandlerInterface implements FilterHandlerInterface
+class GreaterThanOrEqualsFilterHandler implements FilterHandlerInterface
 {
     /**
      * @inheritdoc
      */
     public function handles()
     {
-        return GreaterThan::OPERATOR;
+        return GreaterThanOrEquals::OPERATOR;
     }
 
     /**
@@ -22,9 +22,10 @@ class GreaterThanFilterHandlerInterface implements FilterHandlerInterface
     public function addFilterToQueryBuilder(QueryBuilder $queryBuilder, $field, FilterInterface $filter)
     {
         $queryBuilder->andWhere(
-            $queryBuilder->expr()->gt($field, $queryBuilder->expr()->literal($filter->getValue()))
+            $queryBuilder->expr()->gte($field, $queryBuilder->expr()->literal($filter->getValue()))
         );
 
         return $queryBuilder;
     }
 }
+

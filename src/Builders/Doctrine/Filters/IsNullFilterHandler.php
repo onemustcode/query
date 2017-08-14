@@ -4,16 +4,16 @@ namespace OneMustCode\Query\Builders\Doctrine\Filters;
 
 use Doctrine\ORM\QueryBuilder;
 use OneMustCode\Query\Filters\FilterInterface;
-use OneMustCode\Query\Filters\NotEquals;
+use OneMustCode\Query\Filters\IsNull;
 
-class NotEqualsFilterHandlerInterface implements FilterHandlerInterface
+class IsNullFilterHandler implements FilterHandlerInterface
 {
     /**
      * @inheritdoc
      */
     public function handles()
     {
-        return NotEquals::OPERATOR;
+        return IsNull::OPERATOR;
     }
 
     /**
@@ -22,7 +22,7 @@ class NotEqualsFilterHandlerInterface implements FilterHandlerInterface
     public function addFilterToQueryBuilder(QueryBuilder $queryBuilder, $field, FilterInterface $filter)
     {
         $queryBuilder->andWhere(
-            $queryBuilder->expr()->neq($field, $queryBuilder->expr()->literal($filter->getValue()))
+            $queryBuilder->expr()->isNull($field)
         );
 
         return $queryBuilder;
