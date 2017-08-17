@@ -26,5 +26,10 @@
         "exclude-from-classmap": [
             "/Tests/"
         ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "OneMustCode\\Query\\Tests\\": "tests/"
+        }
     }
 }

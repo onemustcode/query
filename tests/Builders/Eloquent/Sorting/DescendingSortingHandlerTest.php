@@ -1,5 +1,7 @@
 <?php
 
+namespace OneMustCode\Query\Tests\Builders\Eloquent\Sorting;
+
 use OneMustCode\Query\Builders\Eloquent\Sorting\DescendingSortingHandler;
 use OneMustCode\Query\Sorting\Descending;
 

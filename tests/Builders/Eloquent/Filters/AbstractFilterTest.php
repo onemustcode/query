@@ -1,24 +1,14 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
-use Illuminate\Database\Capsule\Manager as Capsule;
+namespace OneMustCode\Query\Tests\Builders\Eloquent\Filters;
+
+use OneMustCode\Query\Tests\Builders\Eloquent\AbstractTest;
 use OneMustCode\Query\Filters\FilterInterface;
 use OneMustCode\Query\Builders\Eloquent\Filters\FilterHandlerInterface;
+use OneMustCode\Query\Tests\Builders\Eloquent\Model;
 
-abstract class AbstractFilterTest extends TestCase
+abstract class AbstractFilterTest extends AbstractTest
 {
-    public function setUp()
-    {
-        $capsule = new Capsule;
-        $capsule->addConnection([
-            'driver' => 'sqlite',
-            'database' => __DIR__.'/../database.sqlite',
-            'prefix' => ''
-        ]);
-        $capsule->setAsGlobal();
-        $capsule->bootEloquent();
-    }
-
     /**
      * @return FilterHandlerInterface
      */
@@ -79,11 +69,6 @@ abstract class AbstractFilterTest extends TestCase
      */
     protected function getModel()
     {
-        return WhereModel::query();
+        return Model::query();
     }
-}
-
-class WhereModel extends \Illuminate\Database\Eloquent\Model
-{
-    //
 }

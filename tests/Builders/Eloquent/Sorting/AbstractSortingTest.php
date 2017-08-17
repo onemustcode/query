@@ -1,24 +1,14 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
-use Illuminate\Database\Capsule\Manager as Capsule;
+namespace OneMustCode\Query\Tests\Builders\Eloquent\Sorting;
+
+use OneMustCode\Query\Tests\Builders\Eloquent\AbstractTest;
 use OneMustCode\Query\Sorting\SortingInterface;
 use OneMustCode\Query\Builders\Eloquent\Sorting\SortingHandlerInterface;
+use OneMustCode\Query\Tests\Builders\Eloquent\Model;
 
-abstract class AbstractSortingTest extends TestCase
+abstract class AbstractSortingTest extends AbstractTest
 {
-    public function setUp()
-    {
-        $capsule = new Capsule;
-        $capsule->addConnection([
-            'driver' => 'sqlite',
-            'database' => __DIR__.'/../database.sqlite',
-            'prefix' => ''
-        ]);
-        $capsule->setAsGlobal();
-        $capsule->bootEloquent();
-    }
-
     /**
      * @return SortingHandlerInterface
      */
@@ -79,11 +69,6 @@ abstract class AbstractSortingTest extends TestCase
      */
     protected function getModel()
     {
-        return SortingModel::query();
+        return Model::query();
     }
-}
-
-class SortingModel extends \Illuminate\Database\Eloquent\Model
-{
-    //
 }

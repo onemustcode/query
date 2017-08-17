@@ -1,7 +1,7 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
-use Illuminate\Database\Capsule\Manager as Capsule;
+namespace OneMustCode\Query\Tests\Builders\Eloquent;
+
 use OneMustCode\Query\Builders\Eloquent\QueryBuilder;
 use OneMustCode\Query\Query;
 use OneMustCode\Query\Paging\Paging;
@@ -18,20 +18,8 @@ use OneMustCode\Query\Filters\Like;
 use OneMustCode\Query\Filters\NotEquals;
 use OneMustCode\Query\Filters\NotIn;
 
-class QueryBuilderTest extends TestCase
+class QueryBuilderTest extends AbstractTest
 {
-    public function setUp()
-    {
-        $capsule = new Capsule;
-        $capsule->addConnection([
-            'driver' => 'sqlite',
-            'database' => __DIR__.'/../database.sqlite',
-            'prefix' => ''
-        ]);
-        $capsule->setAsGlobal();
-        $capsule->bootEloquent();
-    }
-
     public function testBuildQuery()
     {
         $queryBuilder = new QueryBuilder();
@@ -122,11 +110,6 @@ class QueryBuilderTest extends TestCase
 
     protected function getModel()
     {
-        return QueryModel::query();
+        return Model::query();
     }
-}
-
-class QueryModel extends \Illuminate\Database\Eloquent\Model
-{
-    //
 }

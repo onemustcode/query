@@ -1,5 +1,7 @@
 <?php
 
+namespace OneMustCode\Query\Tests\Builders\Eloquent\Filters;
+
 use OneMustCode\Query\Builders\Eloquent\Filters\LessThanFilterHandler;
 use OneMustCode\Query\Filters\LessThan;
 
