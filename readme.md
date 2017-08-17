@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/onemustcode/query.svg?branch=master)](https://travis-ci.org/onemustcode/query)
+
 # Query
 todo: fix what Query is, add more info abouth the filters, sortings, paging and includes.
 
