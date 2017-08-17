@@ -14,10 +14,9 @@
         "php": ">=5.6.4"
     },
     "require-dev": {
-        "symfony/var-dumper": "^3.2",
-        "phpunit/phpunit": "^6.0",
+        "phpunit/phpunit": "~6.0",
         "mockery/mockery": "dev-master",
-        "illuminate/database": "^5.4"
+        "illuminate/database": "~5.4"
     },
     "autoload": {
         "psr-4": {
