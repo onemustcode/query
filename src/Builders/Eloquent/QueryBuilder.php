@@ -15,6 +15,9 @@ use OneMustCode\Query\Builders\Eloquent\Filters\LikeFilterHandler;
 use OneMustCode\Query\Builders\Eloquent\Filters\NotEqualsFilterHandler;
 use OneMustCode\Query\Builders\Eloquent\Filters\NotInFilterHandler;
 use OneMustCode\Query\Builders\Eloquent\Filters\FilterHandlerInterface;
+use OneMustCode\Query\Builders\Eloquent\Sorting\AscendingSortingHandler;
+use OneMustCode\Query\Builders\Eloquent\Sorting\DescendingSortingHandler;
+use OneMustCode\Query\Builders\Eloquent\Sorting\SortingHandlerInterface;
 use OneMustCode\Query\Query;
 
 class QueryBuilder
@@ -22,10 +25,14 @@ class QueryBuilder
     /** @var FilterHandlerInterface[] */
     protected $filterHandlers = [];
 
+    /** @var SortingHandlerInterface[] */
+    protected $sortingHandlers = [];
+
     /**
-     * @param FilterHandlerInterface[] $additionalFilterHandlers
+     * @param array $additionalFilterHandlers
+     * @param array $additionalSortingHandlers
      */
-    public function __construct(array $additionalFilterHandlers = [])
+    public function __construct(array $additionalFilterHandlers = [], array $additionalSortingHandlers = [])
     {
         $defaultFilterHandlers = [
             new EqualsFilterHandler(),
@@ -47,6 +54,18 @@ class QueryBuilder
         foreach ($filterHandlers as $filterHandler) {
             $this->filterHandlers[$filterHandler->handles()] = $filterHandler;
         }
+
+        $defaultSortingHandlers = [
+            new AscendingSortingHandler(),
+            new DescendingSortingHandler(),
+        ];
+
+        /** @var SortingHandlerInterface[] $sortingHandlers */
+        $sortingHandlers = array_merge($defaultSortingHandlers, $additionalSortingHandlers);
+
+        foreach ($sortingHandlers as $sortingHandler) {
+            $this->sortingHandlers[$sortingHandler->handles()] = $sortingHandler;
+        }
     }
 
     /**
@@ -59,8 +78,6 @@ class QueryBuilder
     public function build(Query $query, Builder $eloquentQueryBuilder = null, array $acceptedFilters, array $acceptedSortings)
     {
         foreach ($query->getFilters() as $filter) {
-            $expr = null;
-
             if (! array_key_exists($filter->getField(), $acceptedFilters)) {
                 continue;
             }
@@ -79,16 +96,13 @@ class QueryBuilder
                 continue;
             }
 
+            if (! array_key_exists($sorting->getDirection(), $this->sortingHandlers)) {
+                continue;
+            }
+
             $field = $acceptedSortings[$sorting->getField()];
 
-            switch ($sorting->getDirection()) {
-                case 'asc':
-                    $eloquentQueryBuilder->orderBy($field, 'ASC');
-                    break;
-                case 'desc':
-                    $eloquentQueryBuilder->orderBy($field, 'DESC');
-                    break;
-            }
+            $this->sortingHandlers[$sorting->getDirection()]->addSortingToQueryBuilder($eloquentQueryBuilder, $field, $sorting);
         }
 
         return $eloquentQueryBuilder;

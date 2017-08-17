@@ -21,7 +21,7 @@ class LessThanOrEqualsFilterHandler implements FilterHandlerInterface
      */
     public function addFilterToQueryBuilder(Builder $queryBuilder, $field, FilterInterface $filter)
     {
-        $queryBuilder->where($field, '=<', $filter->getValue());
+        $queryBuilder->where($field, '<=', $filter->getValue());
 
         return $queryBuilder;
     }
