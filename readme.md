@@ -1,4 +1,7 @@
 [![Build Status](https://travis-ci.org/onemustcode/query.svg?branch=master)](https://travis-ci.org/onemustcode/query)
+[![Total Downloads](https://poser.pugx.org/onemustcode/query/d/total.svg)](https://packagist.org/packages/onemustcode/query)
+[![Latest Stable Version](https://poser.pugx.org/onemustcode/query/v/stable)](https://packagist.org/packages/onemustcode/query)
+[![License](https://poser.pugx.org/onemustcode/query/license)](https://packagist.org/packages/onemustcode/query)
 
 # Query
 todo: fix what Query is, add more info abouth the filters, sortings, paging and includes.
