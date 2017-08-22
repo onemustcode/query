@@ -6,7 +6,7 @@ use OneMustCode\Query\Builders\Eloquent\Filters\NotInFilterHandler;
 use OneMustCode\Query\Filters\NotIn;
 
 /**
- * @covers NotInFilterHandler
+ * @covers OneMustCode\Query\Builders\Eloquent\Filters\NotInFilterHandler
  */
 class NotInFilterHandlerTest extends AbstractFilterTest
 {

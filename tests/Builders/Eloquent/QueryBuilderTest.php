@@ -18,6 +18,9 @@ use OneMustCode\Query\Filters\Like;
 use OneMustCode\Query\Filters\NotEquals;
 use OneMustCode\Query\Filters\NotIn;
 
+/**
+ * @covers OneMustCode\Query\Builders\Eloquent\QueryBuilder
+ */
 class QueryBuilderTest extends AbstractTest
 {
     public function testBuildQuery()

@@ -6,7 +6,7 @@ use OneMustCode\Query\Builders\Eloquent\Filters\InFilterHandler;
 use OneMustCode\Query\Filters\In;
 
 /**
- * @covers InFilterHandler
+ * @covers OneMustCode\Query\Builders\Eloquent\Filters\InFilterHandler
  */
 class InFilterHandlerTest extends AbstractFilterTest
 {

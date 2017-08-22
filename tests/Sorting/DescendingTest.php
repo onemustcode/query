@@ -5,6 +5,9 @@ namespace OneMustCode\Query\Tests\Sorting;
 use OneMustCode\Query\Sorting\Descending;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers OneMustCode\Query\Sorting\Descending
+ */
 class DescendingTest extends TestCase
 {
     public function testSorting()

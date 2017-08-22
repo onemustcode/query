@@ -6,7 +6,7 @@ use OneMustCode\Query\Builders\Eloquent\Filters\NotEqualsFilterHandler;
 use OneMustCode\Query\Filters\NotEquals;
 
 /**
- * @covers NotEqualsFilterHandler
+ * @covers OneMustCode\Query\Builders\Eloquent\Filters\NotEqualsFilterHandler
  */
 class NotEqualsFilterHandlerTest extends AbstractFilterTest
 {
