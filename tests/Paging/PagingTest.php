@@ -5,6 +5,9 @@ namespace OneMustCode\Query\Tests\Paging;
 use OneMustCode\Query\Paging\Paging;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers OneMustCode\Query\Paging\Paging
+ */
 class PagingTest extends TestCase
 {
     public function testPaging()

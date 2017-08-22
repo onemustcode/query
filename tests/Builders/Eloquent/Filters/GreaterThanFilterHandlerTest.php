@@ -6,7 +6,7 @@ use OneMustCode\Query\Builders\Eloquent\Filters\GreaterThanFilterHandler;
 use OneMustCode\Query\Filters\GreaterThan;
 
 /**
- * @covers GreaterThanFilterHandler
+ * @covers OneMustCode\Query\Builders\Eloquent\Filters\GreaterThanFilterHandler
  */
 class GreaterThanFilterHandlerTest extends AbstractFilterTest
 {

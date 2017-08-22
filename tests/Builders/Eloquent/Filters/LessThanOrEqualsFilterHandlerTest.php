@@ -6,7 +6,7 @@ use OneMustCode\Query\Builders\Eloquent\Filters\LessThanOrEqualsFilterHandler;
 use OneMustCode\Query\Filters\LessThanOrEquals;
 
 /**
- * @covers LessThanOrEqualsFilterHandler
+ * @covers OneMustCode\Query\Builders\Eloquent\Filters\LessThanOrEqualsFilterHandler
  */
 class LessThanOrEqualsFilterHandlerTest extends AbstractFilterTest
 {

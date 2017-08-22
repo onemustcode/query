@@ -6,7 +6,7 @@ use OneMustCode\Query\Builders\Eloquent\Filters\IsNotNullFilterHandler;
 use OneMustCode\Query\Filters\IsNotNull;
 
 /**
- * @covers IsNotNullFilterHandler
+ * @covers OneMustCode\Query\Builders\Eloquent\Filters\IsNotNullFilterHandler
  */
 class IsNotNullFilterHandlerTest extends AbstractFilterTest
 {

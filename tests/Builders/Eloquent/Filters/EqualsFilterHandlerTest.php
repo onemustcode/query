@@ -6,7 +6,7 @@ use OneMustCode\Query\Builders\Eloquent\Filters\EqualsFilterHandler;
 use OneMustCode\Query\Filters\Equals;
 
 /**
- * @covers EqualsFilterHandler
+ * @covers OneMustCode\Query\Builders\Eloquent\Filters\EqualsFilterHandler
  */
 class EqualsFilterHandlerTest extends AbstractFilterTest
 {

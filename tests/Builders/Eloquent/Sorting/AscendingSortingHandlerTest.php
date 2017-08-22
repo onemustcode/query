@@ -6,7 +6,7 @@ use OneMustCode\Query\Builders\Eloquent\Sorting\AscendingSortingHandler;
 use OneMustCode\Query\Sorting\Ascending;
 
 /**
- * @covers AscendingSortingHandler
+ * @covers OneMustCode\Query\Builders\Eloquent\Sorting\AscendingSortingHandler
  */
 class AscendingSortingHandlerTest extends AbstractSortingTest
 {

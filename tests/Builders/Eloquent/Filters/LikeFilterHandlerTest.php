@@ -6,7 +6,7 @@ use OneMustCode\Query\Builders\Eloquent\Filters\LikeFilterHandler;
 use OneMustCode\Query\Filters\Like;
 
 /**
- * @covers LikeFilterHandler
+ * @covers OneMustCode\Query\Builders\Eloquent\Filters\LikeFilterHandler
  */
 class LikeFilterHandlerTest extends AbstractFilterTest
 {
