@@ -70,10 +70,10 @@ class Builder
 
         if (isset($this->data['filters'])) {
             foreach ($this->data['filters'] as $field => $data) {
-                $comparison = key($data);
-                $value = reset($data);
-                if (array_key_exists($comparison, $this->filters)) {
-                    $filters[] = new $this->filters[$comparison]($field, $value);
+                foreach($data as $operator => $value) {
+                    if (array_key_exists($operator, $this->filters)) {
+                        $filters[] = new $this->filters[$operator]($field, $value);
+                    }
                 }
             }
         }
