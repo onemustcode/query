@@ -4,7 +4,7 @@
 [![License](https://poser.pugx.org/onemustcode/query/license)](https://packagist.org/packages/onemustcode/query)
 
 # Query
-todo: fix what Query is, add more info abouth the filters, sortings, paging and includes.
+It simply transforms the given filters, sortings and paging to a Doctrine or Eloquent query. Handy for interal usage or it can be used for API's.
 
 ## Installation
 Require the Query library trough composer.
