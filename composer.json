@@ -1,7 +1,7 @@
 {
     "name": "onemustcode/query",
-    "description": "",
-    "keywords": ["query"],
+    "description": "It simply transforms the given filters, sortings and paging to a Doctrine or Eloquent query. Handy for interal usage or it can be used for API's.",
+    "keywords": ["query", "doctrine", "eloquent", "symfony", "laravel", "api", "sorting", "filtering", "paging"],
     "license": "MIT",
     "type": "library",
     "authors": [
